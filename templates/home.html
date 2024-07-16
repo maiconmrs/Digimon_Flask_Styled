@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digimon Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('add_digimon') }}">Add Digimon</a>
+    </nav>
+    <div class="content">
+        <h1>Welcome to the Digimon World!</h1>
+        <div class="digimon-container">
+            {% for digimon in digimons %}
+            <div class="digimon-card">
+                <img src="{{ digimon.image_url }}" alt="{{ digimon.name }}" class="digimon-image">
+                <h2>{{ digimon.name }}</h2>
+                <p><strong class="key">Level:</strong> <span class="value">{{ digimon.level }}</span></p>
+                <p><strong class="key">Type:</strong> <span class="value">{{ digimon.type }}</span></p>
+                <p><strong class="key">Description:</strong> <span class="value">{{ digimon.description }}</span></p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const sparkleCount = 100;
+            for (let i = 0; i < sparkleCount; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.classList.add('sparkle');
+                sparkle.style.left = `${Math.random() * 100}vw`;
+                sparkle.style.top = `${Math.random() * 100}vh`;
+                sparkle.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                sparkle.style.animationDelay = `${Math.random() * 2}s`;
+                document.body.appendChild(sparkle);
+            }
+
+            const cursor = document.createElement('div');
+            cursor.classList.add('custom-cursor');
+            document.body.appendChild(cursor);
+
+            const tail = document.createElement('div');
+            tail.classList.add('cursor-tail');
+            document.body.appendChild(tail);
+
+            document.addEventListener('mousemove', function(e) {
+                cursor.style.left = e.pageX + 'px';
+                cursor.style.top = e.pageY + 'px';
+                tail.style.left = e.pageX + 'px';
+                tail.style.top = e.pageY + 'px';
+            });
+        });
+    </script>
+</body>
+</html>
